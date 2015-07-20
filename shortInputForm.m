@@ -11,7 +11,7 @@ shortInputForm[expr_]:=With[{
    InfinitePlane|HalfLine|InfinitePlane|HalfPlane|Tube|TubeBox|GraphicsComplex|GraphicsComplexBox|
    GraphicsGroup|GraphicsGroupBox|GeoGraphics|Graphics|GraphicsBox|Graphics3D|Graphics3DBox|
    MeshRegion|BoundaryMeshRegion|GeometricTransformation|GeometricTransformationBox|Rotate|Translate|Scale|
-   SurfaceGraphics|Text|TextBox|Inset|InsetBox|Panel|PanelBox|Legended|Placed|LineLegend|Texture,
+   SurfaceGraphics|Text|TextBox|Inset|InsetBox|Inset3DBox|Panel|PanelBox|Legended|Placed|LineLegend|Texture,
  $DynamicalElements=Dynamic|DynamicBox|Tooltip|TooltipBox|StatusArea|CurrentValue,
  $ColorHeads=RGBColor|Hue|GrayLevel|CMYKColor|XYZColor|LABColor|LCHColor|LUVColor,
  $TypesettingNeeded=List|Rule|RuleDelayed|Times|Plus|Power|Sqrt|Exp,
