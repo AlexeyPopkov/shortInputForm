@@ -12,10 +12,14 @@ shortInputForm[expr_]:=With[{
    GraphicsGroup|GraphicsGroupBox|GeoGraphics|Graphics|GraphicsBox|Graphics3D|Graphics3DBox|
    MeshRegion|BoundaryMeshRegion|GeometricTransformation|GeometricTransformationBox|Rotate|Translate|Scale|
    SurfaceGraphics|Text|TextBox|Inset|InsetBox|Inset3DBox|Panel|PanelBox|Legended|Placed|LineLegend|Texture,
- $DynamicalElements=Dynamic|DynamicBox|Tooltip|TooltipBox|StatusArea|CurrentValue,
+ $DynamicalElements=Dynamic|DynamicBox|ActionMenu|ActionMenuBox|Hyperlink|FileNameSetter|Button|ButtonBox|
+   Clock|Tooltip|TooltipBox|StatusArea|CurrentValue|Control|Slider|SliderBox|Slider2D|Slider2DBox|IntervalSlider|HorizontalGauge|
+   LocatorPane|LocatorPaneBox|ClickPane|Animator|AnimatorBox|Trigger|Manipulate|DynamicModule|DynamicModuleBox|
+   Mouseover|Annotation|MouseAnnotation|PopupView|PopupMenu|PopupMenuBox|SetterBar|RadioButtonBar|RadioButton|
+   Setter|SetterBox|Checkbox|PaneSelector|Toggler|Opener|OpenerView|SlideView|FlipView,
  $ColorHeads=RGBColor|Hue|GrayLevel|CMYKColor|XYZColor|LABColor|LCHColor|LUVColor,
  $TypesettingNeeded=List|Rule|RuleDelayed|Times|Plus|Power|Sqrt|Exp,
- $DoNotShorten=PlotRange|PlotRangePadding|ImagePadding|ImageMargins|FrameMargins|Spacings
+ $DoNotShorten=PlotRange|PlotRangePadding|ImagePadding|ImageMargins|FrameMargins|Spacings|FrameMargins|CellMargins|CellFrameMargins
 },
 Style[Replace[expr,{
 (* Removing empty sublists: http://stackoverflow.com/a/6563973/590388 *)
@@ -27,11 +31,11 @@ s:($DynamicalElements):>Style[s,Darker@Red,Bold,StripOnInput->True],
 (* Protecting graphical directives from typesetting *)
 s:Except[$TypesettingNeeded|$ColorHeads|$DoNotShorten,_Symbol]:>Style[s,StripOnInput->True]},{0,Infinity},Heads->True]/.
   {
-   (* Protecting graphics option values from shortening *)
+  (* Protecting graphics option values from shortening *)
    pr:_[$DoNotShorten,_]:>pr,
-   (* Protecting color directives from shortening (can have more than 3 arguments) *)
+  (* Protecting color directives from shortening (can have more than 3 arguments) *)
    col:$ColorHeads[__]:>col,
-   (* Shortening numerical matrices and lists *)
+  (* Shortening numerical matrices and lists *)
    lst:{x_,y__}/;MatrixQ[lst,NumberQ]:>
     {x/.v:{a_,b__}/;Length[v]>3:>
        {a,Interpretation[Style[Skeleton[Length[{b}]],Gray,Selectable->False],Sequence@@{b}]},
