@@ -16,7 +16,8 @@ shortInputForm[expr_]:=With[{
    Clock|Tooltip|TooltipBox|StatusArea|CurrentValue|Control|Slider|SliderBox|Slider2D|Slider2DBox|IntervalSlider|HorizontalGauge|
    LocatorPane|LocatorPaneBox|ClickPane|Animator|AnimatorBox|Trigger|Manipulate|DynamicModule|DynamicModuleBox|
    Mouseover|Annotation|MouseAnnotation|PopupView|PopupMenu|PopupMenuBox|SetterBar|RadioButtonBar|RadioButton|
-   Setter|SetterBox|Checkbox|PaneSelector|Toggler|Opener|OpenerView|SlideView|FlipView,
+   Setter|SetterBox|Checkbox|PaneSelector|Toggler|Opener|OpenerView|SlideView|FlipView|
+   EventHandler|EventHandlerTag|GestureHandler|GestureHandlerTag|TouchPosition|ControlActive,
  $ColorHeads=RGBColor|Hue|GrayLevel|CMYKColor|XYZColor|LABColor|LCHColor|LUVColor,
  $TypesettingNeeded=List|Rule|RuleDelayed|Times|Plus|Power|Sqrt|Exp,
  $DoNotShorten=PlotRange|PlotRangePadding|ImagePadding|ImageMargins|FrameMargins|Spacings|FrameMargins|CellMargins|CellFrameMargins
