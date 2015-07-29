@@ -12,7 +12,7 @@ shortInputForm[expr_]:=With[{
    GraphicsGroup|GraphicsGroupBox|GeoGraphics|Graphics|GraphicsBox|Graphics3D|Graphics3DBox|
    MeshRegion|BoundaryMeshRegion|GeometricTransformation|GeometricTransformationBox|Rotate|Translate|Scale|
    SurfaceGraphics|Text|TextBox|Inset|InsetBox|Inset3DBox|Panel|PanelBox|Legended|Placed|LineLegend|Texture,
- $DynamicalElements=Dynamic|DynamicBox|ActionMenu|ActionMenuBox|Hyperlink|FileNameSetter|Button|ButtonBox|
+ $DynamicalElements=Dynamic|DynamicBox|Refresh|ActionMenu|ActionMenuBox|Hyperlink|FileNameSetter|Button|ButtonBox|
    Clock|Tooltip|TooltipBox|StatusArea|CurrentValue|Control|Slider|SliderBox|Slider2D|Slider2DBox|IntervalSlider|HorizontalGauge|
    LocatorPane|LocatorPaneBox|ClickPane|Animator|AnimatorBox|Trigger|Manipulate|DynamicModule|DynamicModuleBox|
    Mouseover|Annotation|MouseAnnotation|PopupView|PopupMenu|PopupMenuBox|SetterBar|RadioButtonBar|RadioButton|
