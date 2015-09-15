@@ -36,8 +36,16 @@ s:Except[$TypesettingNeeded|$ColorHeads|$DoNotShorten,_Symbol]:>Style[s,StripOnI
    pr:_[$DoNotShorten,_]:>pr,
   (* Protecting color directives from shortening (can have more than 3 arguments) *)
    col:$ColorHeads[__]:>col,
-  (* Shortening numerical matrices and lists *)
-   lst:{x_,y__}/;MatrixQ[lst,NumberQ]:>
+  (* Shortening of numerical arrays *)
+   lst:{x_,y__}/;ArrayQ[lst,3,NumberQ]:>
+    {x/.{a_,b__}:>
+    {a/.v:{c_,d__}/;Length[v]>4:>
+       {c,Interpretation[Style[Skeleton[Length[{d}]],Gray,Selectable->False],Sequence@@{d}]},
+     Interpretation[Style[Skeleton[Length[{b}]],Gray,Selectable->False],Sequence@@{b}]
+    },
+     Interpretation[Style[Skeleton[Length[{y}]],Gray,Selectable->False],Sequence@@{y}]
+    },
+   lst:{x_,y__}/;MatrixQ[lst,NumberQ]&&Length[lst]>2:>
     {x/.v:{a_,b__}/;Length[v]>3:>
        {a,Interpretation[Style[Skeleton[Length[{b}]],Gray,Selectable->False],Sequence@@{b}]},
      Interpretation[Style[Skeleton[Length[{y}]],Gray,Selectable->False],Sequence@@{y}]
