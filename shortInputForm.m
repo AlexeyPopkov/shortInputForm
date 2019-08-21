@@ -51,8 +51,8 @@ s:Except[$TypesettingNeeded|$ColorHeads|$DoNotShorten,_Symbol]:>Style[s,StripOnI
      Interpretation[Style[Skeleton[Length[{y}]],Gray,Selectable->False],Sequence@@{y}]
     },
    lst:{x_,y__}/;VectorQ[lst,NumberQ]&&Length[lst]>3:>
-       {x,Interpretation[Style[Skeleton[Length[{y}]],Gray,Selectable->False],Sequence@@{y}]}
-  }/.{(* Shortening large lists of colors *)
+       {x,Interpretation[Style[Skeleton[Length[{y}]],Gray,Selectable->False],Sequence@@{y}]},
+  (* Shortening large lists of colors *)
    colorList:{Repeated[$ColorHeads[__],{11,Infinity}]}:>
     {First[colorList],Interpretation[Style[Skeleton[Length[colorList]-1],Gray,Selectable->False],Sequence@@Rest[colorList]]}},
     PrintPrecision->3,StripOnInput->True,ShowStringCharacters->True,ShowAutoStyles->True]];
