@@ -1,24 +1,25 @@
 ClearAll[shortInputForm];
 shortInputForm[expr_]:=With[{
- $GraphicalPrimitives=Point|PointBox|Line|LineBox|Arrow|ArrowBox|Rectangle|RectangleBox|
-   Parallelogram|Triangle|JoinedCurve|JoinedCurveBox|FilledCurve|FilledCurveBox|
-   StadiumShape|DiskSegment|Annulus|BezierCurve|BezierCurveBox|BSplineCurve|BSplineCurveBox|
-   BSplineSurface|BSplineSurface3DBox|SphericalShell|CapsuleShape|Raster|RasterBox|Raster3D|Raster3DBox|
-   Polygon|PolygonBox|RegularPolygon|Disk|DiskBox|Circle|CircleBox|Sphere|SphereBox|Ball|
-   Ellipsoid|Cylinder|CylinderBox|Tetrahedron|TetrahedronBox|Cuboid|CuboidBox|Parallelepiped|
-   Hexahedron|HexahedronBox|Prism|PrismBox|Pyramid|PyramidBox|Simplex|ConicHullRegion|ConicHullRegionBox|
-   Hyperplane|HalfSpace|AffineHalfSpace|AffineSpace|ConicHullRegion3DBox|Cone|ConeBox|InfiniteLine|
-   InfinitePlane|HalfLine|InfinitePlane|HalfPlane|Tube|TubeBox|GraphicsComplex|GraphicsComplexBox|
-   GraphicsGroup|GraphicsGroupBox|GeoGraphics|Graphics|GraphicsBox|Graphics3D|Graphics3DBox|
-   MeshRegion|BoundaryMeshRegion|GeometricTransformation|GeometricTransformationBox|Rotate|Translate|Scale|
-   SurfaceGraphics|Text|TextBox|Inset|InsetBox|Inset3DBox|Panel|PanelBox|Legended|Placed|LineLegend|Texture,
- $DynamicalElements=Dynamic|DynamicBox|Refresh|ActionMenu|ActionMenuBox|Hyperlink|FileNameSetter|Button|ButtonBox|
-   Clock|Tooltip|TooltipBox|StatusArea|CurrentValue|Control|Slider|SliderBox|Slider2D|Slider2DBox|IntervalSlider|HorizontalGauge|
-   LocatorPane|LocatorPaneBox|ClickPane|Animator|AnimatorBox|Trigger|Manipulate|DynamicModule|DynamicModuleBox|
-   Mouseover|Annotation|MouseAnnotation|PopupView|PopupMenu|PopupMenuBox|SetterBar|RadioButtonBar|RadioButton|
-   Setter|SetterBox|Checkbox|PaneSelector|Toggler|Opener|OpenerView|SlideView|FlipView|
-   EventHandler|EventHandlerTag|GestureHandler|GestureHandlerTag|TouchPosition|ControlActive,
- $ColorHeads=RGBColor|Hue|GrayLevel|CMYKColor|XYZColor|LABColor|LCHColor|LUVColor,
+ $GraphicalPrimitives=AffineHalfSpace|AffineSpace|AffineTransform|Annulus|Arrow|ArrowBox|AttachCell|AxisObject|Ball|BarLegend|BezierCurve|BezierCurveBox|
+   BooleanRegion|BoundaryMeshRegion|BSplineCurve|BSplineCurveBox|BSplineSurface|BSplineSurface3DBox|Button|ButtonBar|ButtonBox|CapsuleShape|Circle|CircleBox|
+   Cone|ConeBox|ConicHullRegion|ConicHullRegion3DBox|ConicHullRegionBox|CSGRegion|Cube|Cuboid|CuboidBox|Cylinder|CylinderBox|DirectedEdge|Disk|DiskBox|DiskSegment|
+   Dodecahedron|Ellipsoid|EmptyRegion|ErrorBox|FilledCurve|FilledCurveBox|FilledTorus|FrameBox|Framed|GeoCircle|GeoDisk|GeoGraphics|GeoMarker|
+   GeometricTransformation|GeometricTransformation3DBox|GeometricTransformationBox|GeoPath|GeoVector|GeoVisibleRegionBoundary|Graph|Graph3D|
+   Graphics|Graphics3D|Graphics3DBox|GraphicsBox|GraphicsComplex|GraphicsComplex3DBox|GraphicsComplexBox|GraphicsGroup|GraphicsGroupBox|
+   HalfLine|HalfPlane|HalfSpace|Hexahedron|HexahedronBox|HighlightGraph|Hyperlink|Hyperplane|Icosahedron|ImplicitRegion|InfiniteLine|InfinitePlane|
+   Inset|Inset3DBox|InsetBox|JoinedCurve|JoinedCurveBox|Labeled|Legended|Line|LineBox|LineLegend|MeshRegion|Octahedron|Pane|Panel|PanelBox|
+   Parallelepiped|Parallelogram|ParametricRegion|Placed|Point|PointBox|PointLegend|Polygon|Polygon3DBox|PolygonBox|Polyhedron|Prism|PrismBox|Pyramid|PyramidBox|
+   Raster|Raster3D|Raster3DBox|RasterBox|RawBoxes|Rectangle|RectangleBox|Region|RegularPolygon|Rotate|RotationTransform|Scale|Simplex|Sound|SoundNote|
+   Sphere|SphereBox|SphericalShell|StadiumShape|SurfaceGraphics|SwatchLegend|Tetrahedron|TetrahedronBox|Text|Text3DBox|TextBox|Texture|Translate|Triangle|Tube|TubeBox,
+ $DynamicalElements=ActionMenu|ActionMenuBox|AnimatedImage|Animator|AnimatorBox|Annotation|Audio|Button|ButtonBox|Checkbox|CheckboxBar|ClickPane|Clock|ClockGauge|
+   ColorSetter|ColorSlider|Control|ControlActive|CurrentScreenImage|CurrentValue|Deploy|Dynamic|DynamicBox|DynamicGeoGraphics|DynamicLocation|
+   DynamicModule|DynamicModuleBox|DynamicName|DynamicNamespace|DynamicWrapper|DynamicWrapperBox|EventHandler|EventHandlerTag|FileNameSetter|FlipView|
+   FormBox|FormObject|GestureHandler|GestureHandlerTag|HorizontalGauge|Hyperlink|InputField|IntervalSlider|Locator|LocatorPane|LocatorPaneBox|Manipulate|
+   MouseAnnotation|MouseAppearance|Mouseover|MousePosition|Opener|OpenerView|PaneSelector|Placeholder|Play|Point|PointBox|PopupMenu|PopupMenuBox|PopupView|
+   ProgressIndicator|RadioButton|RadioButtonBar|Refresh|Setter|SetterBar|SetterBox|Slider|Slider2D|Slider2DBox|SliderBox|SlideView|StatusArea|Toggler|
+   Tooltip|TooltipBox|TouchPosition|Trigger|VerticalSlider,
+ $ColorHeads=CMYKColor|ConicGradientFilling|Darker|DirectionalLight|Directive|Glow|Specularity|GoochShading|GrayLevel|Hue|LABColor|LCHColor|Lighter|
+   LUVColor|Opacity|RGBColor|XYZColor,
  $TypesettingNeeded=List|Rule|RuleDelayed|Times|Plus|Power|Sqrt|Exp,
  $DoNotShorten=PlotRange|PlotRangePadding|ImagePadding|ImageMargins|FrameMargins|Spacings|FrameMargins|CellMargins|CellFrameMargins
 },
