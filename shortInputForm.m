@@ -1,26 +1,26 @@
-ClearAll[ShortInputForm];
+ClearAll[shortInputForm];
 
 (* Handling NumericArray and ByteArray *)
-ShortInputForm[expr:(_NumericArray|_ByteArray)]:=ShortInputForm[ToExpression[ToString[expr,InputForm],InputForm,HoldComplete],ReleaseHold]
+shortInputForm[expr:(_NumericArray|_ByteArray)]:=shortInputForm[ToExpression[ToString[expr,InputForm],InputForm,HoldComplete],ReleaseHold]
 (* All other Atoms *)
-ShortInputForm[expr_?AtomQ]:=ShortInputForm[expr,Unevaluated];
+shortInputForm[expr_?AtomQ]:=shortInputForm[expr,Unevaluated];
 (* Main usage case *)
-ShortInputForm[expr_]:=ShortInputForm[HoldComplete[expr],ReleaseHold];
+shortInputForm[expr_]:=shortInputForm[HoldComplete[expr],ReleaseHold];
 (* This subroutine "un-evaluates" the supplied expression: 
 it converts Atomic compound-type objects (like Graph etc.) into the corresponding unevaluated expressions. 
 But it keeps untouched NumericArray and ByteArray. *)
-ShortInputForm[expr_,Unevaluated]:=Module[{},
+shortInputForm[expr_,Unevaluated]:=Module[{},
     (* Based on Nucleus function by Carl Woll: *)
     (* https://mathematica.stackexchange.com/a/157198/280 *)
-    If[!MemberQ[Links[], $AtomLinkForShortInputForm] || LinkReadyQ[$AtomLinkForShortInputForm],
-        Quiet @ LinkClose[$AtomLinkForShortInputForm];
-        $AtomLinkForShortInputForm = LinkCreate[LinkMode -> Loopback]
+    If[!MemberQ[Links[], $AtomLinkForshortInputForm] || LinkReadyQ[$AtomLinkForshortInputForm],
+        Quiet @ LinkClose[$AtomLinkForshortInputForm];
+        $AtomLinkForshortInputForm = LinkCreate[LinkMode -> Loopback]
     ];
-    LinkWrite[$AtomLinkForShortInputForm, expr];
-    ShortInputForm[LinkRead[$AtomLinkForShortInputForm,HoldComplete],ReleaseHold]
+    LinkWrite[$AtomLinkForshortInputForm, expr];
+    shortInputForm[LinkRead[$AtomLinkForshortInputForm,HoldComplete],ReleaseHold]
 ];
 (* This subroutine inactivates and formats all Heads in expr, and then shortens long lists. *)
-ShortInputForm[expr_,ReleaseHold]:=With[{
+shortInputForm[expr_,ReleaseHold]:=With[{
  $Objects=AffineHalfSpace|AffineSpace|AffineTransform|Annulus|Arrow|ArrowBox|AttachCell|AxisObject|Ball|BarLegend|BezierCurve|BezierCurveBox|
    BooleanRegion|BoundaryMeshRegion|BSplineCurve|BSplineCurveBox|BSplineSurface|BSplineSurface3DBox|Button|ButtonBar|ButtonBox|ByteArray|CapsuleShape|Circle|CircleBox|
    Cone|ConeBox|ConicHullRegion|ConicHullRegion3DBox|ConicHullRegionBox|CSGRegion|Cube|Cuboid|CuboidBox|Cylinder|CylinderBox|DirectedEdge|Disk|DiskBox|DiskSegment|
