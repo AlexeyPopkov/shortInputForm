@@ -1,24 +1,26 @@
-ClearAll[shortInputForm];
+ClearAll[ShortInputForm];
 
+(* Handling NumericArray and ByteArray *)
+ShortInputForm[expr:(_NumericArray|_ByteArray)]:=ShortInputForm[ToExpression[ToString[expr,InputForm],InputForm,HoldComplete],ReleaseHold]
+(* All other Atoms *)
+ShortInputForm[expr_?AtomQ]:=ShortInputForm[expr,Unevaluated];
+(* Main usage case *)
+ShortInputForm[expr_]:=ShortInputForm[HoldComplete[expr],ReleaseHold];
 (* This subroutine "un-evaluates" the supplied expression: 
 it converts Atomic compound-type objects (like Graph etc.) into the corresponding unevaluated expressions. 
 But it keeps untouched NumericArray and ByteArray. *)
-shortInputForm[expr_,Unevaluated]:=Module[{},
+ShortInputForm[expr_,Unevaluated]:=Module[{},
     (* Based on Nucleus function by Carl Woll: *)
     (* https://mathematica.stackexchange.com/a/157198/280 *)
-    If[!MemberQ[Links[], $AtomLinkForshortInputForm] || LinkReadyQ[$AtomLinkForshortInputForm],
-        Quiet @ LinkClose[$AtomLinkForshortInputForm];
-        $AtomLinkForshortInputForm = LinkCreate[LinkMode -> Loopback]
+    If[!MemberQ[Links[], $AtomLinkForShortInputForm] || LinkReadyQ[$AtomLinkForShortInputForm],
+        Quiet @ LinkClose[$AtomLinkForShortInputForm];
+        $AtomLinkForShortInputForm = LinkCreate[LinkMode -> Loopback]
     ];
-    LinkWrite[$AtomLinkForshortInputForm, expr];
-    shortInputForm[LinkRead[$AtomLinkForshortInputForm,HoldComplete],ReleaseHold]
+    LinkWrite[$AtomLinkForShortInputForm, expr];
+    ShortInputForm[LinkRead[$AtomLinkForShortInputForm,HoldComplete],ReleaseHold]
 ];
-(* Handling NumericArray and ByteArray *)
-shortInputForm[expr:(_NumericArray|_ByteArray)]:=shortInputForm[ToExpression[ToString[expr,InputForm],InputForm,HoldComplete],ReleaseHold]
-(* All other Atoms *)
-shortInputForm[expr_?AtomQ]:=shortInputForm[expr,Unevaluated];
-(* This subroutine inactivates and formats all Heads in expr, and then shortens long lists *)
-shortInputForm[expr_,ReleaseHold]:=With[{
+(* This subroutine inactivates and formats all Heads in expr, and then shortens long lists. *)
+ShortInputForm[expr_,ReleaseHold]:=With[{
  $Objects=AffineHalfSpace|AffineSpace|AffineTransform|Annulus|Arrow|ArrowBox|AttachCell|AxisObject|Ball|BarLegend|BezierCurve|BezierCurveBox|
    BooleanRegion|BoundaryMeshRegion|BSplineCurve|BSplineCurveBox|BSplineSurface|BSplineSurface3DBox|Button|ButtonBar|ButtonBox|ByteArray|CapsuleShape|Circle|CircleBox|
    Cone|ConeBox|ConicHullRegion|ConicHullRegion3DBox|ConicHullRegionBox|CSGRegion|Cube|Cuboid|CuboidBox|Cylinder|CylinderBox|DirectedEdge|Disk|DiskBox|DiskSegment|
@@ -64,7 +66,10 @@ Style[ReleaseHold @ Replace[expr,
   },{1,Infinity},Heads->True]/.
     (* Rules for simplifying option lists (all Symbols are already inactivated) *)
     {
-    (h:Style[Graphics|GraphicsBox|Graphics3D|Graphics3DBox,___])[first_,rest__]:>h[first,SortBy[DeleteDuplicatesBy[Flatten[{rest}],First[#,#]&],ToString@First[#,#]&]]
+    (h:Style[Graphics|GraphicsBox|Graphics3D|Graphics3DBox,___])[first_,rest__]:>If[$VersionNumber>=11,
+    h[first,SortBy[DeleteDuplicatesBy[Flatten[{rest}],First[#,#]&],ToString@First[#,#]&]],
+    h[first,SortBy[DeleteDuplicates[Flatten[{rest}],If[Length[#1]==0,#1,First[#1]]===If[Length[#2]==0,#2,First[#2]]&],ToString@If[Length[#]==0,#,First[#]]&]]
+    ]
     }/.
     (* Rules for code shortening *)
     {
@@ -92,5 +97,3 @@ Style[ReleaseHold @ Replace[expr,
      colorList:{Repeated[$ColorHeads[__],{11,Infinity}]}:>
           {First[colorList],Interpretation[Style[Skeleton[Length[colorList]-1],Gray,Selectable->False],Sequence@@Rest[colorList]]}},
   PrintPrecision->3,StripOnInput->True,ShowStringCharacters->True,ShowAutoStyles->True]];
-    
-shortInputForm[expr_]:=shortInputForm[HoldComplete[expr],ReleaseHold];
