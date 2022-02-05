@@ -41,6 +41,7 @@ shortInputForm[expr_,ReleaseHold]:=With[{
    Tooltip|TooltipBox|TouchPosition|Trigger|VerticalSlider,
  $ColorHeads=CMYKColor|Darker|Directive|GrayLevel|Hue|LABColor|LCHColor|Lighter|
    LUVColor|Opacity|RGBColor|XYZColor,
+ $SpecializedCompoundDirectives=StrokeForm|CapForm|JoinForm|EdgeForm|EdgeCapForm|EdgeJoinForm|FaceForm,
  $TypesettingNeeded=List|Association|Rule|RuleDelayed|Times|Plus|Power|Sqrt|Exp,
  $DoNotShorten=PlotRange|PlotRangePadding|ImagePadding|ImageMargins|Spacings|FrameMargins|CellMargins|CellFrameMargins,
  $SpecialDirectives=VertexColors|VertexNormals|VertexTextureCoordinates|
@@ -60,7 +61,9 @@ Style[ReleaseHold @ Replace[expr,
   (* Protecting and highlighting dynamical constructs *)
   s:($DynamicalElements):>Style[s,Darker@Red,Bold,StripOnInput->True],
   (* Highlighting selected special directives *)
-  s:($SpecialDirectives):>Style[s,Darker@Green,Bold,StripOnInput->True],  
+  s:($SpecialDirectives):>Style[s,Darker@Green,Bold,StripOnInput->True],   
+  (* Highlighting specialized containers for directives *)
+  s:($SpecializedCompoundDirectives):>Style[s,RGBColor[0., 0.25098039215686274, 0.5019607843137255],Bold,StripOnInput->True],  
   (* Protecting remaining symbols from typesetting *)
   s:Except[$TypesettingNeeded|$ColorHeads|$DoNotShorten|HoldComplete,_Symbol]:>Style[s,StripOnInput->True]
   },{1,Infinity},Heads->True]/.
